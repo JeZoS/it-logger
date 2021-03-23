@@ -15,14 +15,14 @@ const LogItem = ({ log }) => {
           {log.message}
         </a>
         <br />
-        <snap className="grey-text">
-          <snap className="black-text">ID #{log.id}</snap>{" "}
+        <span className="grey-text">
+          <span className="black-text">ID #{log.id}</span>{" "}
           last updated by{" "}
-          <snap className="black-text">{log.tech}</snap> on{" "}
+          <span className="black-text">{log.tech}</span> on{" "}
           <Moment format="MMMM Do YYYY, h:mm:ss a">
             {log.date}
           </Moment>
-        </snap>
+        </span>
         <a href="#!" className="secondary-content">
           <i className="material-icons grey-text">delete</i>
         </a>
