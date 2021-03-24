@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
+import { useDispatch } from "react-redux";
+import { addLogs } from "../../actions/logActions";
 
 const AddLogModal = () => {
   const [message, setMessage] = useState("");
   const [attention, setAttention] = useState("");
   const [tech, setTech] = useState("");
-
+  const dispatch = useDispatch();
   const onSubmit = () => {
     if (message === "" || tech === "") {
       M.toast({ html: "All Fields Are Required" });
     } else {
-      console.log("bitch");
+      dispatch(addLogs({ message, attention, tech }));
+      // console.log("bitch");
     }
   };
 

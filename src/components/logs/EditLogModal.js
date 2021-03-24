@@ -1,18 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
+import { useDispatch, useSelector } from "react-redux";
+import { updateLog } from "../../actions/logActions";
 
 const EditLogModal = () => {
   const [message, setMessage] = useState("");
   const [attention, setAttention] = useState("");
   const [tech, setTech] = useState("");
 
+  const dispatch = useDispatch();
+
+  const log = useSelector((state) => state.log);
+  const { techs } = useSelector((state) => state.tech);
+
+  const { current } = log;
+
   const onSubmit = () => {
     if (message === "" || tech === "") {
       M.toast({ html: "All Fields Are Required" });
     } else {
-      console.log("bitch");
+      dispatch(
+        updateLog({ message, attention, tech }, current.id)
+      );
     }
   };
+
+  useEffect(() => {
+    console.log(current);
+    if (current) {
+      setMessage(current.message);
+      setAttention(current.attention);
+      setTech(current.tech);
+    }
+  }, [current]);
 
   return (
     <div
@@ -32,7 +52,6 @@ const EditLogModal = () => {
                 setMessage(e.currentTarget.value)
               }
             />
-            <label htmlFor="message">Log Message</label>
           </div>
         </div>
         <div className="row">
@@ -46,9 +65,11 @@ const EditLogModal = () => {
               <option value="" disabled>
                 Select Tech
               </option>
-              <option value="JeZoS">JeZoS</option>
-              <option value="Joker">Joker</option>
-              <option value="Wayne">Wayne</option>
+              {techs.map((t) => (
+                <option value={t.firstName} key={t.id}>
+                  {t.firstName}
+                </option>
+              ))}
             </select>
           </div>
         </div>

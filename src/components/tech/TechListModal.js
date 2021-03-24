@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getTech } from "../../actions/techActions";
 import TechItem from "./TechItem";
 
 const TechListModal = () => {
-  const [techs, setTechs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [techs, setTechs] = useState([]);
+  // const [loading, setLoading] = useState(false);
 
-  const getTechs = async () => {
-    setLoading(true);
-    const res = await fetch("/techs");
-    const data = await res.json();
-    setTechs(data);
-    setLoading(false);
-  };
+  // const getTechs = async () => {
+  //   setLoading(true);
+  //   const res = await fetch("/techs");
+  //   const data = await res.json();
+  //   setTechs(data);
+  //   setLoading(false);
+  // };
+
+  const tech = useSelector((state) => state.tech);
+
+  const { techs, loading } = tech;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getTechs();
-    //exlint-disable-next-line
+    dispatch(getTech());
+    //eslint-disable-next-line
   }, []);
 
   return (
