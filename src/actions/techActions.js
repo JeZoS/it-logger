@@ -22,6 +22,8 @@ export const getTech = () => async (dispatch) => {
   }
 };
 
+//
+
 export const deleteTech = (id) => async (dispatch) => {
   setLoading();
   try {
